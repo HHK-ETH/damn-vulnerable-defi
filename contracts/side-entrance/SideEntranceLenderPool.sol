@@ -36,6 +36,7 @@ contract SideEntranceLenderPool {
         SafeTransferLib.safeTransferETH(msg.sender, amount);
     }
 
+    //@audit One can deposit using flashloan, contract should not allow execute() to make call to the pool
     function flashLoan(uint256 amount) external {
         uint256 balanceBefore = address(this).balance;
 
