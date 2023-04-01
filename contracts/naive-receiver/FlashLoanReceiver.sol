@@ -21,6 +21,7 @@ contract FlashLoanReceiver is IERC3156FlashBorrower {
         pool = _pool;
     }
 
+    //@audit This function doesn't check who initiated the flashloan so anyone can call it and make the contract pay fees
     function onFlashLoan(
         address,
         address token,
