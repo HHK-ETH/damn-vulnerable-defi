@@ -29,6 +29,8 @@ contract TrusterLenderPool is ReentrancyGuard {
         uint256 balanceBefore = token.balanceOf(address(this));
 
         token.transfer(borrower, amount);
+        //@audit Should execute a function on the target that will then execute data to make msg.sender target and not this contract
+        //@audit current allows to approve any contracts
         target.functionCall(data);
 
         if (token.balanceOf(address(this)) < balanceBefore)
