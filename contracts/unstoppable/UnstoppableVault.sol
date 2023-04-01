@@ -93,6 +93,8 @@ contract UnstoppableVault is IERC3156FlashLender, ReentrancyGuard, Owned, ERC462
         if (amount == 0) revert InvalidAmount(0); // fail early
         if (address(asset) != _token) revert UnsupportedCurrency(); // enforce ERC3156 requirement
         uint256 balanceBefore = totalAssets();
+        //@audit the vault assumes the shares value will always be 1 - 1 which can be wrong as someone can send token directly to the contract increasing the value of shares.
+        //@audit this is especially true for vault that increase in value over time like receives usdc and deposit them on aave for passive yield
         if (convertToShares(totalSupply) != balanceBefore) revert InvalidBalance(); // enforce ERC4626 requirement
         uint256 fee = flashFee(_token, amount);
         // transfer tokens out + execute callback on receiver
