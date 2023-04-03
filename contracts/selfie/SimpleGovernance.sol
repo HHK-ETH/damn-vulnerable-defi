@@ -20,6 +20,11 @@ contract SimpleGovernance is ISimpleGovernance {
         _actionCounter = 1;
     }
 
+    //@audit One can flashloan and queue a proposal then in a second tx execute it.
+    //@audit Add more time between proposal and execution + token vote power should be available only after holding token for a certain time 
+    //@audit Flashloan pool shouldn't allow targeting this contract
+    //@audit Snapshot should not be public on dvt
+    //@audit Governance Should be able to cancel an actionId during ACTION_DELAY period
     function queueAction(address target, uint128 value, bytes calldata data) external returns (uint256 actionId) {
         if (!_hasEnoughVotes(msg.sender))
             revert NotEnoughVotes(msg.sender);
