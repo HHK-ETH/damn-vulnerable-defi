@@ -54,7 +54,7 @@ contract TheRewarderPool {
             revert InvalidDepositAmount();
         }
 
-        accountingToken.mint(msg.sender, amount);
+        accountingToken.mint(msg.sender, amount); //@audit should mint after snapshot otherwise one can flashloan deposit and attack every 5 days
         distributeRewards();
 
         SafeTransferLib.safeTransferFrom(
