@@ -57,6 +57,7 @@ contract PuppetPool is ReentrancyGuard {
         return amount * _computeOraclePrice() * DEPOSIT_FACTOR / 10 ** 18;
     }
 
+    //@audit never use spot price as oracle as it can be atomically increased/decreased by attacker
     function _computeOraclePrice() private view returns (uint256) {
         // calculates the price of the token in wei according to Uniswap pair
         return uniswapPair.balance * (10 ** 18) / token.balanceOf(uniswapPair);
