@@ -60,6 +60,7 @@ contract PuppetV2Pool {
         return _getOracleQuote(tokenAmount).mul(depositFactor) / (1 ether);
     }
 
+    //@audit same as other puppet, never use spot price
     // Fetch the price from Uniswap v2 using the official libraries
     function _getOracleQuote(uint256 amount) private view returns (uint256) {
         (uint256 reservesWETH, uint256 reservesToken) =
