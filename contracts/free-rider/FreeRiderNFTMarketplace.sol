@@ -70,7 +70,7 @@ contract FreeRiderNFTMarketplace is ReentrancyGuard {
         offers[tokenId] = price;
 
         assembly { // gas savings
-            sstore(0x02, add(sload(0x02), 0x01))
+            sstore(0x02, add(sload(0x02), 0x01)) //@audit increment offersCount in assembly
         }
 
         emit NFTOffered(msg.sender, tokenId, price);
@@ -90,6 +90,8 @@ contract FreeRiderNFTMarketplace is ReentrancyGuard {
         if (priceToPay == 0)
             revert TokenNotOffered(tokenId);
 
+        //@audit msg.value should not be used in a loop
+        //@audit msg.value should be cached in a variable in buyMany and then priceToPay should be substract to it on each iteration
         if (msg.value < priceToPay)
             revert InsufficientPayment();
 
