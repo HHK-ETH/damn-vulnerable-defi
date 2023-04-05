@@ -6,6 +6,7 @@ import "solady/src/utils/SafeTransferLib.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol";
 import "@gnosis.pm/safe-contracts/contracts/proxies/IProxyCreationCallback.sol";
+import "hardhat/console.sol";
 
 /**
  * @title WalletRegistry
