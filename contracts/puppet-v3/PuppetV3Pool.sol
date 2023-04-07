@@ -57,7 +57,7 @@ contract PuppetV3Pool {
 
     function _getOracleQuote(uint128 amount) private view returns (uint256) {
         (int24 arithmeticMeanTick,) = OracleLibrary.consult(address(uniswapV3Pool), TWAP_PERIOD);
-        return OracleLibrary.getQuoteAtTick(
+        return OracleLibrary.getQuoteAtTick( //@audit 10min is too short especially for such a small pool with very concentrated liquidity
             arithmeticMeanTick,
             amount, // baseAmount
             address(token), // baseToken
