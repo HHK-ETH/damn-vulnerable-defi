@@ -65,7 +65,7 @@ abstract contract AuthorizedExecutor is ReentrancyGuard {
 
     function _beforeFunctionCall(address target, bytes memory actionData) internal virtual;
 
-    function getActionId(bytes4 selector, address executor, address target) public pure returns (bytes32) {
+    function getActionId(bytes4 selector, address executor, address target) public pure returns (bytes32) { //@audit can a collision happen ?
         return keccak256(abi.encodePacked(selector, executor, target));
     }
 }

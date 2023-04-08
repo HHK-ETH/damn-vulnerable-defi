@@ -33,7 +33,7 @@ contract SelfAuthorizedVault is AuthorizedExecutor {
      * @param recipient address of the tokens' recipient
      * @param amount amount of tokens to be transferred
      */
-    function withdraw(address token, address recipient, uint256 amount) external onlyThis {
+    function withdraw(address token, address recipient, uint256 amount) external onlyThis { //@audit player has access to this signature
         if (amount > WITHDRAWAL_LIMIT) {
             revert InvalidWithdrawalAmount();
         }
